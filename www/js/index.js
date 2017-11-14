@@ -10,6 +10,8 @@ document.getElementById('button_save').addEventListener('click', function(){
             testCount = localStorage.getItem('test-count');
         localStorage.setItem('test-'+((testCount*1)+1), textarea);
         localStorage.setItem('test-count' , ((testCount*1)+1));
+        console.log("proceed");
+        
         let testCountNumber = (testCount*1)+1;
         let content = "";
         for(let a = 1; a<=testCountNumber;a++){
