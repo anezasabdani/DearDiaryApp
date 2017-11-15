@@ -1,24 +1,56 @@
-document.getElementById('button_save').addEventListener('click', function(){
-    let textarea = document.getElementById('diary_input').value;
-    if(textarea != ""){
-        let testCount = 0;
-        if(localStorage.getItem('test-count') == null){
-            localStorage.setItem('test-count',0);
-            testCount = 0;
-        }
-        else
-            testCount = localStorage.getItem('test-count');
-        localStorage.setItem('test-'+((testCount*1)+1), textarea);
-        localStorage.setItem('test-count' , ((testCount*1)+1));
-        console.log("proceed");
-        
-        let testCountNumber = (testCount*1)+1;
-        let content = "";
-        for(let a = 1; a<=testCountNumber;a++){
-            content += "<li>"+ localStorage.getItem('test-'+a)+"</li>"
-            ;
-        }
-        document.getElementById('diary_list').innerHTML = content;
-        document.getElementById('diary_input').value = "";
-    }
-});
+(function(){
+   var list = document.querySelector('#list'),
+   form = document.querySelector('form'),
+   item = document.querySelector('#diary');
+   form.addEventListener('submit',function(e){
+   e.preventDefault();
+  
+  list.innerHTML += '<li>' + diary.value + '</li>';
+   store();
+
+diary.value = "";
+  },false)
+
+   list.addEventListener('click',function(e){
+
+    var t = e.target;
+
+  if(t.classList.contains('checked')){
+   t.parentNode.removeChild(t);
+  } 
+  else {
+   t.classList.add('checked');
+  }
+
+store();
+},false)
+
+    function store() {
+    window.localStorage.myitems = list.innerHTML;
+   }
+    function getValues() {
+    var storedValues = window.localStorage.myitems;
+
+if(!storedValues) {
+
+list.innerHTML = '<li>Bad Luck</li>'+
+
+'<li>Everything was blue</li>'+
+
+'<li>Stay with me</li>'+
+
+'<li>Look what you made me do</li>';
+
+}
+
+else {
+
+list.innerHTML = storedValues;
+
+}
+
+}
+
+getValues();
+
+})();
